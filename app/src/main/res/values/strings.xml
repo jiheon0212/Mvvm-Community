@@ -1,6 +1,4 @@
 <resources>
     <string name="app_name">Mvvm Example</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="web_client_id">810935898981-cjo1o83oot632blr0dj2vk72al59iuns.apps.googleusercontent.com</string>
-    <string name="firebase_auth_client_id">588339627663-kqg4dsqs1jvubmglkh94q5c1uv23bc5u.apps.googleusercontent.com</string>
 </resources>

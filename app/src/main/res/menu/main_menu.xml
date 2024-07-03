@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:title="Chat"
+        app:showAsAction="ifRoom"
+        android:id="@+id/freeChatFragment"
+        android:icon="@drawable/chat_24px"/>
+
+    <item
+        android:title="User"
+        app:showAsAction="ifRoom"
+        android:id="@+id/userFragment"
+        android:icon="@drawable/person_24px"/>
+
+</menu>

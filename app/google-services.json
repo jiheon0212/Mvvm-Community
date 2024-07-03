@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "588339627663",
+    "firebase_url": "https://realtimemvvm-f7b6d-default-rtdb.firebaseio.com",
+    "project_id": "realtimemvvm-f7b6d",
+    "storage_bucket": "realtimemvvm-f7b6d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:588339627663:android:27db2b4ca4a65f657812fa",
+        "android_client_info": {
+          "package_name": "com.example.mvvmexample"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "588339627663-vtq17fomrj5vhcshdk9cs6e6jtfn3mjp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mvvmexample",
+            "certificate_hash": "b17092a9164aca1d6a179f7751c194c218a2abf6"
+          }
+        },
+        {
+          "client_id": "588339627663-kqg4dsqs1jvubmglkh94q5c1uv23bc5u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA50qCBQCcnPZWAZI-iKRRa1k7ePgZyQsk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "588339627663-kqg4dsqs1jvubmglkh94q5c1uv23bc5u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

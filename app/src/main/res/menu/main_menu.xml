@@ -11,7 +11,7 @@
     <item
         android:title="User"
         app:showAsAction="ifRoom"
-        android:id="@+id/userFragment"
+        android:id="@+id/setUserInfoFragment"
         android:icon="@drawable/person_24px"/>
 
 </menu>

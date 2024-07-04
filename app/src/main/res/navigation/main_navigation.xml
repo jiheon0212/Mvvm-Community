@@ -12,9 +12,9 @@
         tools:layout="@layout/fragment_free_chat" />
 
     <fragment
-        android:id="@+id/userFragment"
-        android:name="com.example.mvvmexample.ui.fragments.UserFragment"
-        android:label="fragment_user"
-        tools:layout="@layout/fragment_user" />
+        android:id="@+id/setUserInfoFragment"
+        android:name="com.example.mvvmexample.ui.fragments.SetUserInfoFragment"
+        android:label="fragment_set_user_info"
+        tools:layout="@layout/fragment_set_user_info" />
 
 </navigation>

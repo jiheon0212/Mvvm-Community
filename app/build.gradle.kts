@@ -71,6 +71,15 @@ dependencies {
     implementation("com.google.firebase:firebase-auth-ktx")
     implementation("com.google.android.gms:play-services-auth:20.7.0")
 
+    // Firebase firestore
+    implementation("com.google.firebase:firebase-firestore")
+
+    // Firebase Storage
+    implementation("com.google.firebase:firebase-storage")
+
+    // coroutines
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0-RC")
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)

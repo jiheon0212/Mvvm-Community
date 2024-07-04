@@ -10,7 +10,6 @@ import android.view.inputmethod.InputMethodManager
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mvvmexample.adapter.ChatAdapter
 import com.example.mvvmexample.data.MessageData
@@ -20,18 +19,20 @@ import com.example.mvvmexample.ui.viewmodel.FirebaseDBViewModel
 class FreeChatFragment : Fragment() {
     private val viewModel: FirebaseDBViewModel by viewModels()
     private lateinit var binding: FragmentFreeChatBinding
-    var messageList = mutableListOf<MessageData>()
-    val chatAdapter = ChatAdapter(messageList)
+    private lateinit var messageList: MutableList<MessageData>
+    private lateinit var chatAdapter: ChatAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        messageList = mutableListOf()
+        chatAdapter = ChatAdapter(messageList)
         binding = FragmentFreeChatBinding.inflate(layoutInflater, container, false)
+
         binding.chatRecyclerView.run {
             adapter = chatAdapter
             layoutManager = LinearLayoutManager(context)
-            addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
         }
         return binding.root
     }
@@ -52,6 +53,7 @@ class FreeChatFragment : Fragment() {
                 messageList.add(it)
             }
             chatAdapter.notifyDataSetChanged()
+            binding.chatRecyclerView.scrollToPosition(messageList.size - 1)
         }
 
         // view model에 사용자의 입력 사항을 보낸다.

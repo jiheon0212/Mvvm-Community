@@ -86,6 +86,12 @@ class FirebaseRepository() {
             2 -> {
                 documentRef.update("userNickname", modifyData).await()
             }
+            3 -> {
+                documentRef.update("userSex", modifyData).await()
+            }
+            4 -> {
+                documentRef.update("userBirthDate", modifyData).await()
+            }
         }
     }
 

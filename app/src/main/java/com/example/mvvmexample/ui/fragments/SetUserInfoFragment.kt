@@ -2,6 +2,7 @@ package com.example.mvvmexample.ui.fragments
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.app.DatePickerDialog
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -22,10 +23,12 @@ import com.example.mvvmexample.R
 import com.example.mvvmexample.data.ModifyCallback
 import com.example.mvvmexample.databinding.DialogImageBinding
 import com.example.mvvmexample.databinding.DialogNicknameBinding
+import com.example.mvvmexample.databinding.DialogSexBinding
 import com.example.mvvmexample.databinding.FragmentSetUserInfoBinding
 import com.example.mvvmexample.ui.viewmodel.FirebaseAuthViewModel
 import java.io.File
 import java.text.SimpleDateFormat
+import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
@@ -62,11 +65,71 @@ class SetUserInfoFragment : Fragment(), ModifyCallback {
         binding.tvBtnModify.setOnClickListener {
             nicknameDialog(this)
         }
+        binding.tvBtnModifyBirthDate.setOnClickListener {
+            selectDateDialog(this)
+        }
+        binding.tvBtnModifySex.setOnClickListener {
+            selectSexDialog(this)
+        }
         binding.userImage.setOnClickListener {
             imageDialog()
         }
     }
 
+    // userbirthdate 변경 관련 method
+    override fun birthDateModify(date: String) {
+        viewModel.updateUserInformation(date, 4)
+    }
+
+    private fun selectDateDialog(callback: ModifyCallback) {
+        val calendar = Calendar.getInstance()
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH)
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+        val datePickerDialog = DatePickerDialog(
+            requireContext(),
+            { _, selectedYear, selectedMonth, selectedDay ->
+                val selectedDate = "${selectedYear}-${selectedMonth + 1}-${selectedDay}"
+                callback.birthDateModify(selectedDate)
+            }, year, month, day
+        )
+
+        datePickerDialog.show()
+    }
+
+    // usersex 변경 관련 method
+    override fun sexModify(sex: String) {
+        viewModel.updateUserInformation(sex, 3)
+    }
+
+    private fun selectSexDialog(callback: ModifyCallback) {
+        val builder = AlertDialog.Builder(context)
+        val dialogInflater = DialogSexBinding.inflate(layoutInflater)
+        val dialogView = dialogInflater.root
+        val radioGroup = dialogInflater.radioGroup
+
+        builder.setTitle("성별 변경")
+        builder.setMessage("변경할 성별을 선택해주세요.")
+        builder.setView(dialogView)
+
+        builder.setPositiveButton("확인") { dialog, _ ->
+            when (radioGroup.checkedRadioButtonId) {
+                R.id.radio_male -> callback.sexModify("남성")
+                R.id.radio_female -> callback.sexModify("여성")
+            }
+            dialog.dismiss()
+        }
+
+        builder.setNegativeButton("취소") { dialog, _ ->
+            dialog.dismiss()
+        }
+
+        val dialog = builder.create()
+        dialog.show()
+    }
+
+    // usernickname 변경 관련 method
     override fun nicknameModify(nickname: String) {
         viewModel.updateUserInformation(nickname, 2)
     }

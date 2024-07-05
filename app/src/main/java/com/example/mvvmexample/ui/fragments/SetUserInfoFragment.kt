@@ -35,14 +35,14 @@ import java.util.Locale
 class SetUserInfoFragment : Fragment(), ModifyCallback {
     private lateinit var binding: FragmentSetUserInfoBinding
     private val viewModel: FirebaseAuthViewModel by viewModels()
-    lateinit var reqGallery: ActivityResultLauncher<Intent>
-    lateinit var reqCamera: ActivityResultLauncher<Intent>
-    lateinit var filePath: String
+    private lateinit var reqGallery: ActivityResultLauncher<Intent>
+    private lateinit var reqCamera: ActivityResultLauncher<Intent>
+    private lateinit var filePath: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentSetUserInfoBinding.inflate(layoutInflater, container, false)
         cameraLauncher(this)
         galleryLauncher(this)
@@ -120,7 +120,6 @@ class SetUserInfoFragment : Fragment(), ModifyCallback {
             }
             dialog.dismiss()
         }
-
         builder.setNegativeButton("취소") { dialog, _ ->
             dialog.dismiss()
         }
@@ -150,7 +149,6 @@ class SetUserInfoFragment : Fragment(), ModifyCallback {
             callback.nicknameModify(inputText)
             dialog.dismiss()
         }
-
         builder.setNegativeButton("취소") { dialog, _ ->
             dialog.dismiss()
         }
@@ -186,7 +184,6 @@ class SetUserInfoFragment : Fragment(), ModifyCallback {
             }
             dialog.dismiss()
         }
-
         builder.setNegativeButton("취소") { dialog, _ ->
             dialog.dismiss()
         }

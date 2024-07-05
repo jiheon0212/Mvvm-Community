@@ -27,7 +27,7 @@ class FreeChatFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         messageList = mutableListOf()
-        chatAdapter = ChatAdapter(messageList)
+        chatAdapter = ChatAdapter(mutableListOf())
         binding = FragmentFreeChatBinding.inflate(layoutInflater, container, false)
 
         binding.chatRecyclerView.run {
@@ -48,11 +48,14 @@ class FreeChatFragment : Fragment() {
         viewModel.message.observe(viewLifecycleOwner) { list ->
             // 초기화된 textview에 messagedata를 전부 append 해준다. -> textview에서 recyclerview로 수정 - 완료
             // list를 초기화 시켜주고 다시 담기
-            messageList.clear()
+
+            // 기존 코드는 messageList를 데이터가 변경되면 초기화 시키고 list에 들어있는 모든 value 값을 리스트에 다시 담아주어 화면을 구성했다.
+            // 변경 코드는 list 전체를 adapter에 전달하여 adapter의 method를 통해 messagelist를 교체하며 갱신해 코드가 간결하며 동작속도가 빠르다.
+            /*messageList.clear()
             list.forEach {
                 messageList.add(it)
-            }
-            chatAdapter.notifyDataSetChanged()
+            }*/
+            chatAdapter.newMessage(list)
             binding.chatRecyclerView.scrollToPosition(messageList.size - 1)
         }
 

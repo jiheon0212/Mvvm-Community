@@ -99,7 +99,8 @@ class FirebaseRepository() {
     fun sendMessage(chatValue: String) {
         databaseRef.push().setValue(MessageData(
             time = getCurrentDayAndTime().second,
-            message = chatValue
+            message = chatValue,
+            sender = auth.uid!!
         ))
     }
 

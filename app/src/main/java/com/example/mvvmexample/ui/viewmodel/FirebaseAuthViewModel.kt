@@ -23,10 +23,6 @@ class FirebaseAuthViewModel: ViewModel() {
     fun getFirebaseUser(googleIdToken: String) {
         firebaseRepository.firebaseAuthWithGoogleIdToken(googleIdToken)
     }
-    
-    // userInformation을 auth.uid와 일치하는 데이터를 firestore에서 찾아 가져오는 method 구현하기
-
-    // userInformation을 default 값에서 수정하여 저장하는 method
     fun getUserInformation() {
         viewModelScope.launch {
             // 가벼운 작업은 default 값인 main 디스패쳐에서 진행해준다.

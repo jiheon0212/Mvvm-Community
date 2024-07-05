@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.mvvmexample.data.MessageData
+import com.example.mvvmexample.data.UserChat
 import com.example.mvvmexample.data.UserInfoData
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
@@ -60,6 +61,15 @@ class FirebaseRepository() {
             _userInformation.postValue(userInfoData)
         }
     }
+    suspend fun foundUserInformation(): UserChat {
+        val snapshot = db.collection("userInformation").document(auth.uid!!).get().await()
+        val result = snapshot.toObject<UserInfoData>()
+
+        val image = result?.userProfileImage
+        val name = result?.userNickname
+
+        return UserChat(image,name)
+    }
 
     // userInformation을 update 해주는 method
     // dataType을 지정해 해당 항목만 db에서 업데이트 해준다.
@@ -96,11 +106,13 @@ class FirebaseRepository() {
     }
 
     // realtime db에 메세지 업로드
-    fun sendMessage(chatValue: String) {
+    fun sendMessage(chatValue: String, userChat: UserChat) {
         databaseRef.push().setValue(MessageData(
             time = getCurrentDayAndTime().second,
             message = chatValue,
-            sender = auth.uid!!
+            uid = auth.uid,
+            sender = userChat.userNickname,
+            image = userChat.userImage
         ))
     }
 

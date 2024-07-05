@@ -12,21 +12,20 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mvvmexample.adapter.ChatAdapter
-import com.example.mvvmexample.data.MessageData
+import com.example.mvvmexample.data.UserChat
 import com.example.mvvmexample.databinding.FragmentFreeChatBinding
 import com.example.mvvmexample.ui.viewmodel.FirebaseDBViewModel
 
 class FreeChatFragment : Fragment() {
     private val viewModel: FirebaseDBViewModel by viewModels()
     private lateinit var binding: FragmentFreeChatBinding
-    private lateinit var messageList: MutableList<MessageData>
     private lateinit var chatAdapter: ChatAdapter
+    private lateinit var userChat: UserChat
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        messageList = mutableListOf()
         chatAdapter = ChatAdapter(mutableListOf())
         binding = FragmentFreeChatBinding.inflate(layoutInflater, container, false)
 
@@ -43,6 +42,10 @@ class FreeChatFragment : Fragment() {
         // chatting adapter를 구현해 uid로 사용자와 대상을 구분하며 채팅을 무한 스크롤로 이어갈 수 있게 만든다.
         // view model에 msg객체를 가져오라고 항상 요청한다.
         viewModel.getMessage()
+        viewModel.foundUser()
+        viewModel.user.observe(viewLifecycleOwner){
+            userChat = it
+        }
 
         // view model에서 message 변경 시, textview에 추가해준다.
         viewModel.message.observe(viewLifecycleOwner) { list ->
@@ -56,7 +59,7 @@ class FreeChatFragment : Fragment() {
                 messageList.add(it)
             }*/
             chatAdapter.newMessage(list)
-            binding.chatRecyclerView.scrollToPosition(messageList.size - 1)
+            binding.chatRecyclerView.scrollToPosition(list.size - 1)
         }
 
         // view model에 사용자의 입력 사항을 보낸다.
@@ -64,7 +67,7 @@ class FreeChatFragment : Fragment() {
             val chatValue = binding.editText.text.toString()
             // 메세지가 비어있는지 유효성 검사
             if (chatValue.isNotEmpty()) {
-                viewModel.sendMessage(chatValue)
+                viewModel.sendMessage(chatValue, userChat)
                 binding.editText.setText("")
                 hideKeyboard(it)
             } else {
